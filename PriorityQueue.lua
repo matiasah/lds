@@ -38,6 +38,10 @@ function PriorityQueue:Insert(Value)
 			
 			Left = Middle + 1
 			
+		else
+			
+			break
+			
 		end
 		
 		Middle = math.floor( ( Left + Right ) * 0.5 )
@@ -58,17 +62,17 @@ function PriorityQueue:Contains(Value)
 		
 		local ArrayValue = self.Array[Middle]
 		
-		if ArrayValue == Value then
-			
-			return Middle
-			
-		elseif Value < ArrayValue then
+		if Value < ArrayValue then
 			
 			Right = Middle - 1
 			
 		elseif Value > ArrayValue then
 			
 			Left = Middle + 1
+			
+		else
+			
+			return Middle
 			
 		end
 		
@@ -95,6 +99,24 @@ end
 function PriorityQueue:GetLength()
 	
 	return #self.Array
+	
+end
+
+function PriorityQueue:Remove(Element)
+	
+	local Index = self:Contains(Element)
+	
+	if Index then
+		
+		self:RemoveAt(Index)
+		
+	end
+	
+end
+
+function PriorityQueue:RemoveAt(Index)
+	
+	table.remove(self.Array, Index)
 	
 end
 
