@@ -70,7 +70,7 @@ function PriorityQueue:Contains(Value)
 			
 			Left = Middle + 1
 			
-		else
+		elseif ArrayValue == Value then
 			
 			return Middle
 			
