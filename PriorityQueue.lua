@@ -23,32 +23,52 @@ end
 function PriorityQueue:Insert(Value)
 	-- Binary search the insertion position
 	local Left = 1
-	local Right = #self.Array + 1
-	local Middle = math.floor( ( Left + Right ) * 0.5 )
+	local Right = #self.Array
+	local Middle = 1
 	
-	while Left < Right do
+	while Left <= Right do
+		
+		Middle = math.floor( ( Left + Right ) / 2 )
 		
 		local ArrayValue = self.Array[Middle]
 		
-		if Value < ArrayValue then
-			
-			Right = Middle - 1
-			
-		elseif Value > ArrayValue then
-			
-			Left = Middle + 1
-			
-		else
+		if ArrayValue == Value then
 			
 			break
 			
+		elseif ArrayValue < Value then
+			
+			Left = Middle + 1
+			
+			if Left > Right then
+				
+				Middle = Middle + 1
+				
+				break
+				
+			end
+			
+		else
+			
+			Right = Middle - 1
+			
+			if Left > Right then
+				
+				break
+				
+			end
+			
 		end
-		
-		Middle = math.floor( ( Left + Right ) * 0.5 )
 		
 	end
 	
-	table.insert(self.Array, Middle, Value)
+	for i = #self.Array, Middle, -1 do
+		
+		self.Array[i + 1] = self.Array[i]
+		
+	end
+	
+	self.Array[Middle] = Value
 	
 end
 
